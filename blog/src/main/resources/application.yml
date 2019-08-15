@@ -1,0 +1,38 @@
+# jsp配置
+spring:
+  mvc:
+    view:
+      prefix: WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/boke
+    username: root
+    password: a
+    driver-class-name: com.mysql.jdbc.Driver
+  
+  # 邮件服务配置
+  mail:
+    #邮箱发送地址
+    host: smtp.qq.com
+    # 用户名
+    username: 865651460@qq.com
+    # 发送密码
+    password: ??????
+    # 默认字符集编码
+    default-encoding: UTF-8
+    
+# 发送地址
+mail:
+  fromMail:
+    addr: 865651460@qq.com
+    
+# 日志输出
+logging:
+  level:
+    com:
+      yc: trace
+      
+server:
+  port: 80
+
+    
