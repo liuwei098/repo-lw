@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+<script src="js/jquery-2.1.4.min.js"></script>
+<script src="js/nprogress.js"></script>
+<script src="js/jquery.lazyload.min.js"></script>
 <footer class="footer">
   <div class="container">
     <p>&copy; 2016 <a href="">ylsat.com</a> &nbsp; <a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">豫ICP备20151109-1</a> &nbsp; <a href="sitemap.xml" target="_blank" class="sitemap">网站地图</a></p>
@@ -56,12 +59,34 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-          <button type="submit" class="btn btn-primary">登录</button>
+          <button type="button" onclick="login1()" class="btn btn-primary">登录</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+function login1(){
+	//ajax登录
+	var url="login";
+	var name=loginModalUserNmae.value;
+	var pwd=loginModalUserPwd.value;
+	var param={name:name,password:pwd};
+	//匿名函数
+	var callback=function(result){
+		if(result.code==1){
+			$('.login').text("欢迎："+result.data.name);
+			//抑制窗口下次跳出
+			$(".login").attr("data-target","");
+			//隐藏登录窗口
+			$('#loginModal').modal('hide');
+		}else{
+			alert(result.msg);
+		}
+	};
+	$.post(url,param,callback);
+}
+</script>
 <!--右键菜单列表-->
 <div id="rightClickMenu">
   <ul class="list-group rightClickMenuList">

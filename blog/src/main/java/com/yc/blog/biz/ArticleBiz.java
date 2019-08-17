@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.yc.boke.bean.Article;
@@ -39,6 +40,33 @@ public class ArticleBiz {
 		example.setOrderByClause("id desc");
 		PageHelper.startPage(page,5);
 		return am.selectByExampleWithBLOBs(example);
+	}
+
+	/**
+	 * 阅读博文
+	 * @param id
+	 * @return
+	 */
+	@Transactional
+	public Article read(int id) {
+		ArticleExample example = new ArticleExample();
+		example.createCriteria().andIdEqualTo(id);
+		Article a= am.selectByPrimaryKey(id);
+		//更新阅读次数
+		a.setReadcnt((a.getReadcnt()==null? 0:a.getReadcnt())+1);
+		am.updateByPrimaryKey(a);
+		return a;
+	}
+
+	public List<Article> queryRela(Integer categoryid) {
+		ArticleExample example =new ArticleExample();
+		//时间降序
+		example.setOrderByClause("createTime desc");
+		//查相关类别的文章
+		example.createCriteria().andCategoryidEqualTo(categoryid);
+		//查10个记录
+		PageHelper.startPage(1,10);
+		return am.selectByExample(example);
 	}
 
 }

@@ -5,6 +5,10 @@ import java.io.PrintWriter;
 
 public class BizException extends Exception{
 
+	public BizException(String string) {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String getMessage() {
 		// TODO Auto-generated method stub
