@@ -19,6 +19,12 @@
     <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
     <result column="readCnt" jdbcType="INTEGER" property="readcnt" />
     <result column="agreeCnt" jdbcType="INTEGER" property="agreecnt" />
+  	
+  	<association property="category" column="categoryId" fetchType="lazy"
+  	 select="com.yc.boke.dao.CategoryMapper.selectByPrimaryKey"></association>
+  	
+  
+  
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.yc.boke.bean.Article">
     <!--

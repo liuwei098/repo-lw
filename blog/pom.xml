@@ -68,6 +68,14 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 		</dependency>
+		
+		<!-- 分页相关依赖 -->
+		<dependency>
+		    <groupId>com.github.pagehelper</groupId>
+		    <artifactId>pagehelper-spring-boot-starter</artifactId>
+		    <version>1.2.5</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
