@@ -24,9 +24,9 @@ public class UserAction {
 			User user=ub.login(name,password);
 			model.addAttribute("loginedUser", user);
 			return new result(1,"ok",user);
-		}/*catch(BizException e){
+		}catch(BizException e){
 			return new result(0,e.getMessage());
-		}*/catch(RuntimeException e){
+		}catch(RuntimeException e){
 			e.printStackTrace();
 			//掩盖错误
 			return new result(0, "业务繁忙，请稍后再试！");
