@@ -118,13 +118,13 @@ $('[data-toggle="tooltip"]').tooltip();
  
  
 //无限滚动反翻页
-jQuery.ias({
+var ias=jQuery.ias({
 	history: false,
 	container : '.content',
 	item: '.excerpt',
 	pagination: '.pagination',
 	next: '.next-page a',
-	trigger: '查看更多',
+	/*trigger: '查看更多',
 	loader: '<div class="pagination-loading"><img src="/Home/images/loading.gif" /></div>',
 	triggerPageThreshold: 5,
 	onRenderComplete: function() {
@@ -134,9 +134,35 @@ jQuery.ias({
 		});
 		$('.excerpt img').attr('draggable','false');
 		$('.excerpt a').attr('draggable','false');
-	}
+	}*/
 });
  
+var page=1;
+ias.on('load',function(event){
+	event.ajaxOptions.data={page:++page};
+});
+
+//渲染完成后的事件
+ias.on('rendered',function(event){
+	$('.excerpt .thumb').lazyload({
+		placeholder: '/Home/images/occupying.png',
+		threshold: 400
+	});
+	$('.excerpt img').attr('draggable','false');
+	$('.excerpt a').attr('draggable','false');
+});
+
+ias.extension(new IASSpinnerExtension({
+	src:'/Home/images/loading.gif',
+}));
+
+ias.extension(new IASTriggerExtension({
+	text:'查看更多',
+	offset:2
+}));
+
+
+
 //鼠标滚动超出侧边栏高度绝对定位
 $(window).scroll(function () {
     var sidebar = $('.sidebar');
