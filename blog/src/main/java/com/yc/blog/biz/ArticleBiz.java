@@ -69,4 +69,8 @@ public class ArticleBiz {
 		return am.selectByExample(example);
 	}
 
+	public void save(Article article) {
+		am.insert(article);
+	}
+
 }

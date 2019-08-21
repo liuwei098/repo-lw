@@ -1,5 +1,6 @@
 package com.yc.blog.web;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -9,12 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.yc.blog.biz.ArticleBiz;
 import com.yc.blog.biz.CategoryBiz;
 import com.yc.boke.bean.Article;
 import com.yc.boke.bean.Category;
+import com.yc.boke.bean.User;
 
 @Controller
 public class ArticleAction {
@@ -58,6 +62,20 @@ public class ArticleAction {
 		return "article";
 	}
 	
+	@GetMapping("toedit")
+	public String toedit(Model model){
+		model.addAttribute("article", new Article());
+		return "articleEdit";
+	}
+	
+	@PostMapping("saveArticle")
+	public String save(Article article,Model model,
+			@SessionAttribute("loginedUser") User user){
+		article.setAuthor(user.getName());
+		article.setCreatetime(new Date());
+		abiz.save(article);
+		return article(article.getId(),model);
+	}
 }
 
 
